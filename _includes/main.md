@@ -42,7 +42,7 @@ $ mkdir /home/jail
 $ chown root:root /home/jail
 ```
 
-Можно начинать наполнение системы. Есть примеры уже готовых конфигов в [/etc/jailkit/jk_init.ini](/jk_init.html)
+Можно начинать наполнение системы. Есть примеры уже готовых конфигов в [/etc/jailkit/jk_init.ini]({{site.baseurl}}/jk_init.html)
 
 пример из документации с пояснениями:
 

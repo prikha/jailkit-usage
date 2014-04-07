@@ -2,4 +2,4 @@
 layout: application
 ---
 
-{% include jk_init.md %}
+{% include install-node.md %}

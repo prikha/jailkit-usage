@@ -2,4 +2,4 @@
 layout: application
 ---
 
-{% include jk_init.md %}
+{% include jk-init.md %}

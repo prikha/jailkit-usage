@@ -1,4 +1,13 @@
 ##Agent Forwarding
+В случае работы с Vagrant надо проверить включен ли agent-forwarding в настройках виртуалки:
+
+```ruby
+...
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  ...
+  config.ssh.forward_agent = true
+end
+```
 
 [Agent forwarding on GithHub](https://help.github.com/articles/using-ssh-agent-forwarding)
 

@@ -9,18 +9,6 @@ $ vagrant init InFog/debian74_x64
 $ vagrant up
 ```
 
-Теперь нам необходимо слегка поправить Vagrantfile:
-important! это надо разделить на два и своевременно вкинуть.
-
-```ruby
-...
-Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
-  ...
-  config.vm.network "forwarded_port", guest: 80, host: 8080
-  config.ssh.forward_agent = true
-end
-```
-
 ###Готовим jail на удаленном сервере
 
 Заходим под обычным пользователем и ставим [jailkit](http://olivier.sessink.nl/jailkit/).
@@ -38,8 +26,7 @@ vagrant@debian$ make install
 Теперь нам нужна папка для подсистемы:
 
 ```
-$ mkdir /home/jail
-$ chown root:root /home/jail
+vagrant@debian$ sudo mkdir /home/jail
 ```
 
 Можно начинать наполнение системы. Есть примеры уже готовых конфигов в [/etc/jailkit/jk_init.ini]({{site.baseurl}}/jk_init.html)
@@ -81,9 +68,16 @@ emptydirs = /svr
 С соответствующими правами:
 
 ```sh
-$ jk_init -v /home/jail basicshell
-$ jk_init -v /home/jail netutils
-$ jk_init -v /home/jail editors
+$ jk_init -v -j /home/jail jk_lsh
+$ jk_init -v -j /home/jail basicshell editors extendedshell netutils ssh sftp scp
+```
+Из нужного я бы установил еще git
+
+```sh
+aptitude install git
+aptitude install curl
+jk_cp -v -f -j /home/jail git
+jk_cp -v -f -j /home/jail curl
 ```
 
 ###Создаем пользователя
@@ -96,7 +90,7 @@ $ passwd jailed_user
 После чего мы проверяем `/etc/passwd`:
 
 ```sh
-jailed_user:x:1001:1001::/home/jail/./home/jailed_user:/usr/sbin/jk_chrootsh
+jailed_user:x:1001:1001::/home/jail/./home/jailed_user:/bin/bash
 ```
 
 ###Теперь прячем его в Jail
@@ -112,7 +106,7 @@ $ jk_jailuser -m -j /home/jail jailed_user
 `-j` указывает в какой именно джейл его сажать
 
 ###Дадим нормальную консоль
-
+ *Тут какие-то странности.*
 
 проверяем и правим `/home/jail/etc/passwd`
 

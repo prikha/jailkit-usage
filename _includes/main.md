@@ -77,6 +77,7 @@ $ jk_init -v -j /home/jail basicshell editors extendedshell netutils ssh sftp sc
 aptitude install git
 aptitude install curl
 jk_cp -v -f -j /home/jail git
+jk_cp -v -f -j /home/jail /usr/share/git-core
 jk_cp -v -f -j /home/jail curl
 ```
 

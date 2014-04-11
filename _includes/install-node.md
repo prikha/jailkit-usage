@@ -1,4 +1,4 @@
-#Look Ma! No content here!
+#Установка NodeJS в Jail
 ##Теперь ставим NodeJS.
 
 Идем от лица свободного пользователя и ставим:
@@ -20,11 +20,16 @@ sudo make install
 Теперь обеспечим себе полную работоспособность текущих установок.
 
 ```sh
-jk_cp -v -f -j /home/jail env
 jk_cp -v -f -j /home/jail node
 jk_cp -v -f -j /home/jail npm
 jk_cp -v -f -j /home/jail /usr/local/lib/dtrace/node.d
 jk_cp -v -f -j /home/jail /usr/local/lib/node_modules
+```
+
+Тут оказалось что не лишним будет пробросить в джейл еще и `env`.
+
+```sh
+jk_cp -v -f -j /home/jail env
 ```
 
 ##Внутри Jail
